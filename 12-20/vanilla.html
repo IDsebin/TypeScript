@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+    function App() {
+      function handleClick() {
+        //setCount(count + 1);  첫번째 방법
+        setCount((current) => current + 1);   //두번쨰 방법
+      }
+
+      const [count, setCount] = React.useState(0);
+
+      return (
+        <div>
+          <h3>Count Number = {count}</h3>
+          <button onClick={handleClick}>1 추가</button>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

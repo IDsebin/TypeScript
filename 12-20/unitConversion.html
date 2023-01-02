@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+    function App() {
+      const [minutes, setMinutes] = React.useState(0);
+      const [change, setChange] = React.useState(false);
+      const onChange = (e) => {
+        setMinutes(e.target.value);
+      };
+      const onClick = () => {
+        setMinutes(0);
+      };
+      const filped = () => {
+        setChange(!change);
+        setMinutes(0);
+        console.log(change);
+      };
+      return (
+        <div>
+          <h1>UnitConversion</h1>
+          <label htmlFor="minutes">Minutes</label>
+          <input
+            value={change ? minutes * 60 : minutes}
+            id="minutes"
+            placeholder="Minutes"
+            type="number"
+            onChange={onChange}
+            disabled={change}
+          ></input>
+          <label htmlFor="hours">Hours</label>
+          <input
+            value={!change ? minutes : Math.round(minutes / 60)}
+            id="hours"
+            placeholder="Hours"
+            type="number"
+            onChange={onChange}
+            disabled={!change}
+          ></input>
+          <button onClick={onClick}>Reset</button>
+          <button onClick={filped}>Filp</button>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

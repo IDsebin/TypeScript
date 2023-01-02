@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+
+    function MinutesToHours() {
+      const [minutes, setMinutes] = React.useState("0   ");
+      const [change, setChange] = React.useState(false);
+
+      const onChange = (e) => {
+        setMinutes(e.target.value);
+      };
+      const handleClick = () => {
+        setMinutes(0);
+      };
+      const handleFilped = () => {
+        setChange(!change);
+        setMinutes(0);
+      };
+      return (
+        <div>
+          <label htmlFor="minutess">Minutess</label>
+          <input
+            value={change ? minutes * 60 : minutes}
+            id="minutess"
+            placeholder="Minutess"
+            type="number"
+            onChange={onChange}
+            disabled={change}
+          ></input>
+          <label htmlFor="hours">Hours</label>
+          <input
+            value={!change ? Math.round(minutes / 60) : minutes}
+            id="hours"
+            placeholder="Hours"
+            type="number"
+            disabled={!change}
+            onChange={onChange}
+          ></input>
+          <button onClick={handleClick}>Reset</button>
+          <button onClick={handleFilped}>
+            {change ? "Turn Back" : "change"}
+          </button>
+        </div>
+      );
+    }
+
+    function KmToM() {
+      const [meter, setMeter] = React.useState("0");
+      const [filp, setFilp] = React.useState(false);
+      const onChange = (e) => {
+        setMeter(e.target.value);
+      };
+      const handleClick = () => {
+        setMeter("0");
+      };
+      const handleFilp = () => {
+        setFilp(!filp);
+        setMeter("0");
+      };
+      return (
+        <div>
+          <label htmlFor="meter">M</label>
+          <input
+            value={filp ? Math.round(meter * 1000) : meter}
+            id="meter"
+            placeholder="Meter"
+            type="number"
+            onChange={onChange}
+            disabled={filp}
+          ></input>
+          <label htmlFor="km">KM</label>
+          <input
+            value={filp ? meter : Math.round(meter / 1000)}
+            id="km"
+            placeholder="Kilometer"
+            type="number"
+            disabled={!filp}
+            onChange={onChange}
+          ></input>
+          <button onClick={handleClick}>Reset</button>
+          <button onClick={handleFilp}>Filped</button>
+        </div>
+      );
+    }
+
+    function App() {
+      const [index, setIndex] = React.useState("xx");
+      const onChange = (e) => {
+        setIndex(e.target.value);
+        console.log(e.target.value);
+      };
+      return (
+        <div>
+          <h3>useState 연습</h3>
+          <select value={index} onChange={onChange}>
+            <option value="xx">Nothing</option>
+            <option value="0">MinutesToHours</option>
+            <option value="1">KmToM</option>
+          </select>
+          <hr />
+          {index === "xx" ? "Please Choice Selected" : null}
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <KmToM /> : null}
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
